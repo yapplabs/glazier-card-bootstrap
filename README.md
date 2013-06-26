@@ -16,13 +16,11 @@ A starting point for new glazier card repos
     bundle exec rails console
 
     # lookup the CardManifest record
-    >> cm = CardManifest.where(name: 'raycohen/glazier-card-bootstrap').first
+    cm = CardManifest.where(name: 'raycohen/glazier-card-bootstrap').first
 
     # create a Pane record
-    >> pane = Pane.new
-    >> pane.card_manifest_name = cm.name
-    >> pane.save
+    pane = Pane.create{|pane| pane.card_manifest_name = cm.name }
 
     # add the Pane to the dashboard of your choosing
-    >> db = Dashboard.where(repository: 'yapplabs/glazier').first
-    >> db.panes.push(pane)
+    db = Dashboard.where(repository: 'yapplabs/glazier').first
+    db.panes.push(pane)
