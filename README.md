@@ -24,7 +24,7 @@ A starting point for a new glazier card
     > pane.save!
 
     # add the Pane to the repository dashboard of your choosing
-    db = Dashboard.where(repository: 'yapplabs/glazier').first
+    db = Dashboard.where(repository: 'yapplabs/glazier').first  #repository is the repo you wish to add card to
     db.panes.push(pane)
 
 In your browser, navigate to your glazier repository page.  Your card should appear there.
