@@ -1,7 +1,7 @@
 glazier-card-bootstrap
 ======================
 
-A starting point for new glazier card repos
+A starting point for a new glazier card
 
 
 ## Adding to glazier
@@ -12,15 +12,19 @@ A starting point for new glazier card repos
     # in `glazier/`
     grunt ingestCards
 
+    # register the card with the github repo you wish to have it available on
+    # by creating a Pane record
+    
     # in `glazier/glazier-server/`
     bundle exec rails console
 
-    # lookup the CardManifest record
-    cm = CardManifest.where(name: 'raycohen/glazier-card-bootstrap').first
+    # create a Pane
+    > pane = Pane.new
+    > pane.pane_type_name="your-cards-type-name"  #refers to the name property in your card's package.json
+    > pane.save!
 
-    # create a Pane record
-    pane = Pane.create{|pane| pane.card_manifest_name = cm.name }
-
-    # add the Pane to the dashboard of your choosing
+    # add the Pane to the repository dashboard of your choosing
     db = Dashboard.where(repository: 'yapplabs/glazier').first
     db.panes.push(pane)
+
+In your browser, navigate to your glazier repository page.  Your card should appear there.
