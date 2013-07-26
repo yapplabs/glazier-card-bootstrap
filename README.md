@@ -1,50 +1,63 @@
 glazier-card-bootstrap
 ======================
 
-This project offers a starting point for developing new glazier cards.  Note this
-is a work in progress.  In the future....  But for now, this project offers a
+This project offers a starting point for developing new [glazier](https://github.com/yapplabs/glazier) cards.  Note this is a work in progress.  In the future we plan to have
+a more robust development environment, processes, generators etc.  But for now, this project offers a lightweight,
 relatively painless way to start developing cards.
 
-## Adding a card to glazier
+## Steps for developing a glazier card from this repo
 
-As you have develop a card (process described below), or want to incorporate someone
-else's card in your project, we recommend you keep the project in a separate folder
-from the glazier folder and simlink your folder into the glazier cards directory.  This
-way you can easily pull glazier project updates, while allowing you to develop and test
-your card independently.
+1. Clone this repo
 
-Steps for adding a card to glazier locally:
+  As present, to run cards, you will need to place them within the cards directory of the glazier instance you are running.  We suggest you clone this repo outside of glazier, then simlink your card dir into the glazier/cards dir to minimizing versioning issues between separate projects.
+
+2. Rename the project
+
+  - rename the enclosing directory
+  - edit the name-related properties in package.json (including name, glazier.Config.shortname, glazier.Config.repositoryName, repository.url)
 
 
-    1. Simlink your card dir into the glazier cards dir
+3. If you plan to use Ember.js to develop your card: 
 
-    cd your-local-glazier/cards/
-    ln -s your/path/to/glazier-card-bootstrap
+  - copy the files in the /ember-app-files dir to the /app dir
+  - in cards.js uncomment the ember and handlebars js files:
+  
+    Conductor.require('/vendor/handlebars.js');
+    Conductor.require('/vendor/ember-latest.js');
 
-    2. Ingest
+  If you are not using Ember, you may delete the /ember-app-files directory and the require statements.
 
-    # in `glazier/`
+4. Symlink your card dir 
+
+    //cd to your-glazier-installation-dir/cards/ 
+    ln -s /path/to/your-glazier-card-dir
+
+5. Ingest your card
+
+    // in `glazier/`
     grunt ingestCards
+    
+6. Register the card type with your repository dashboard
 
-    3. Add your card to the github repository dashboard on which you wish to have it available
+We will make this easier in the future, but for now this is done directly from the Rails console as follows:
 
-    # in `glazier/glazier-server/`
+    // in glazier/glazier-server/
     bundle exec rails console
 
-    # add the Pane to the repository dashboard of your choosing
-    # for instance to add to the yapplabs/glazier dashboard, do the followin:
+    // add the Pane to the repository dashboard of your choosing
+    // for instance to add to the yapplabs/glazier dashboard, do the following:
     > dashboard = Dashboard.find_or_bootstrap('yapplabs/glazier')
 
-     # if your card's name (defined ?) is 'my-awesome-card'
-    > dashboard.add_pane('my-awesome-card')
+     // if your card's name in package.json is 'my-card'
+    > dashboard.add_pane('my-card')
 
-    #if add_pane doesn't work, can add manually
+    #if add_pane throws an error, add manually
     > pane = Pane.new
     > pane.pane_type_name="your-cards-type-name"  #refers to the name property in your card's package.json
     > pane.save!
     > dashboard.panes.push(pane)
 
-Removing a card from a dashboard
+  note - to remove a card from a dashboard, use:
 
     dashboard.remove_pane(card_type_name)
 
@@ -52,9 +65,55 @@ In your browser, navigate to your repository page.  Your card should appear ther
 
 ## Developing a Glazier Card
 
-  1. clone this project
-  2. rename folder and files
-  3. if using ember, copy files in ember-app-files dir to the app dir
-  4.  scope out services you need
-  5.  develop your card
-  6. ember-specific card development
+###Adding Services to your Card
+
+To add a service, in this example the FullXhrService, do the following:
+
+1. Add service in `package.json` `glazierConfig` property
+
+    {
+      ...
+      "glazierConfig": {
+        "consumes": [
+          ...
+          "fullXhr"
+        ],
+        ...
+    }
+
+2. Add an entry in your cards `consumers` property.  For instance to add the `fullXhr`
+ service to your card:
+
+    var card = Conductor.card({
+        ...
+        consumers: {
+            ...,
+            'fullXhr': Conductor.OasisConsumer
+        }
+    }
+
+
+## Debugging
+
+### Templates not found
+
+`Assertion failed: Module: 'templates' not found`
+`Uncaught Error: Module: 'templates' not found.`
+
+You must have a /templates dir and at least one template, otherwise the
+templates module won't get required and you will get an error (or if not
+using templates can get rid of the require templates in card (todo: verify and fix)
+
+### Mysterious Syntax Error
+
+Check that your import and export statements are correct, e.g.:
+
+import Resolver from 'resolver';
+...
+export default card;
+
+You can verify this is the problem by looking in the generated card,
+`/dist/card.js`, where you will see statements like:
+
+ __exports__ ...
+ __import__ ...
