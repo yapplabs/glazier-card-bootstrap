@@ -7,61 +7,55 @@ relatively painless way to start developing cards.
 
 ## Steps for developing a glazier card from this repo
 
-1. Clone this repo
+1.  Clone this repo
 
   As present, to run cards, you will need to place them within the cards directory of the glazier instance you are running.  We suggest you clone this repo outside of glazier, then simlink your card dir into the glazier/cards dir to minimizing versioning issues between separate projects.
 
-2. Rename the project
+2.  Rename the project
 
-  - rename the enclosing directory
-  - edit the name-related properties in package.json (including name, glazier.Config.shortname, glazier.Config.repositoryName, repository.url)
+        * rename the enclosing directory
+        * edit the name-related properties in package.json (including name, glazier.Config.shortname, glazier.Config.repositoryName, repository.url)
+   
+3.  If you plan to use Ember.js to develop your card: 
 
-
-3. If you plan to use Ember.js to develop your card: 
-
-  - copy the files in the /ember-app-files dir to the /app dir
-  - in cards.js uncomment the ember and handlebars js files:
+        * copy the files in the /ember-app-files dir to the /app dir
+        * in cards.js uncomment the ember and handlebars js files:
   
-    Conductor.require('/vendor/handlebars.js');
-    Conductor.require('/vendor/ember-latest.js');
+        Conductor.require('/vendor/handlebars.js');
+        Conductor.require('/vendor/ember-latest.js');
 
   If you are not using Ember, you may delete the /ember-app-files directory and the require statements.
 
 4. Symlink your card dir 
 
-    //cd to your-glazier-installation-dir/cards/ 
-    ln -s /path/to/your-glazier-card-dir
+        cd to your-glazier-installation-dir/cards/ 
+        ln -s /path/to/your-glazier-card-dir
 
 5. Ingest your card
 
-    // in `glazier/`
-    grunt ingestCards
+        # in `glazier/`
+        grunt ingestCards
     
 6. Register the card type with your repository dashboard
 
-We will make this easier in the future, but for now this is done directly from the Rails console as follows:
+  We will make this easier in the future, but for now this is done directly from the Rails console as follows:
 
-    // in glazier/glazier-server/
-    bundle exec rails console
+        # in glazier/glazier-server/
+        bundle exec rails console
 
-    // add the Pane to the repository dashboard of your choosing
-    // for instance to add to the yapplabs/glazier dashboard, do the following:
-    > dashboard = Dashboard.find_or_bootstrap('yapplabs/glazier')
+        # add the Pane to the repository dashboard of your choosing
+        # for instance to add to the yapplabs/glazier dashboard, do the following:
+        dashboard = Dashboard.find_or_bootstrap('yapplabs/glazier')
 
-     // if your card's name in package.json is 'my-card'
-    > dashboard.add_pane('my-card')
+        # if your card's name in package.json is 'my-card'
+        dashboard.add_pane('my-card')
 
-    #if add_pane throws an error, add manually
-    > pane = Pane.new
-    > pane.pane_type_name="your-cards-type-name"  #refers to the name property in your card's package.json
-    > pane.save!
-    > dashboard.panes.push(pane)
 
   note - to remove a card from a dashboard, use:
 
     dashboard.remove_pane(card_type_name)
 
-In your browser, navigate to your repository page.  Your card should appear there.
+  In your browser, navigate to your repository page.  Your card should appear there.
 
 ## Developing a Glazier Card
 
