@@ -1,4 +1,4 @@
-import 'conductor' as Conductor;
+import Conductor from 'conductor';
 
 /* Uncomment/add required javascript files */
 Conductor.require('/vendor/jquery.js');
@@ -6,8 +6,8 @@ Conductor.require('/vendor/jquery.js');
 //Conductor.require('/vendor/ember-latest.js');
 //Conductor.require('/vendor/loader.js');
 
-/* Uncomment/add required css files */
-//Conductor.requireCSS('/css/glazier_card.css');
+/* css files */
+Conductor.requireCSS('/css/glazier_card.css');
 Conductor.requireCSS('card.css');
 
 var card = Conductor.card({
@@ -21,36 +21,27 @@ var card = Conductor.card({
     'test': TestConsumer
 
   },
-
+  defaultContentDiv: "<div id=\"card\"></div>",
+  bootstrapDiv: "<div id=\"card\">Hello New Card!! (remove me from /card.js)</div>",
   render: function (intent, dimensions) {
 
-    document.body.innerHTML = "<div id=\"card\">Hello Bootstrap.  Click me.</div>";
+    document.body.innerHTML = this.bootstrapDiv;   //this.defaultContentDiv
     /*
-      After verifying card bootstrapped, replace above line with line below
-      and remove (or overwrite) the defaultOnActivation function and its call.
+      After verifying card bootstrapped, replace this.bootstrapDiv with
+      this.defaultContentDiv and you can delete the bootstrapDiv property
 
       If using Ember, the App.rootElement is set to '#card', so you will need
       it in your DOM as below.
      */
-    //document.body.innerHTML = "<div id=\"card\"></div>";
-
 
     /* Remove this line if not using Ember.js in your card */
     //todo make this a try/catch with appropriate msg if can't find ember
     Ember.run(this.App, 'advanceReadiness');
   },
 
-  defaultOnActivation: function(){
-    card.consumers.repository.request('getRepository').then(function(name) {
-      $('#card').click(function() {
-        alert('You clicked me in ' + name);
-      });
-    });
-  },
 
   activate: function() {
     this.App = requireModule('app/application');
-    this.defaultOnActivation();
   },
 
   metadata: {
@@ -63,5 +54,5 @@ var card = Conductor.card({
 
 });
 
-export = card;
+export default card;
 
