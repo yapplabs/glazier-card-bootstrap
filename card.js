@@ -1,9 +1,10 @@
 import Conductor from 'conductor';
+import TestConsumer from 'app/consumers/test';
 
 /* Uncomment/add required javascript files */
 Conductor.require('/vendor/jquery.js');
-//Conductor.require('/vendor/handlebars.js');
-//Conductor.require('/vendor/ember-latest.js');
+Conductor.require('/vendor/handlebars.js');
+Conductor.require('/vendor/ember-latest.js');
 //Conductor.require('/vendor/loader.js');
 
 /* css files */
