@@ -14,7 +14,7 @@ relatively painless way to start developing cards.
 2.  Rename the project
 
         * rename the enclosing directory
-        * edit the name-related properties in package.json (including name, glazier.Config.shortname, glazier.Config.repositoryName, repository.url)
+        * edit the name-related properties in package.json (including name, displayName, etc.)
    
 3.  If you plan to use Ember.js to develop your card: 
 
@@ -36,10 +36,17 @@ relatively painless way to start developing cards.
         # in `glazier/`
         grunt ingestCards
     
-6. Register the card type with your repository dashboard
+6. Adding your card to a Github repository dashboard
 
-  We will make this easier in the future, but for now this is done directly from the Rails console as follows:
+  Navigate to the repository in Glazier.  Click on the `Add Pane` link on the top right of the page.
+  Your card type should appear in the menu.  Click on it and it should appear in the dashboard.
 
+  To **remove a card** from a dashboard, hover on the gear in the lower right of the card and a Remove Card 
+  link will appear.
+
+  **Only if your card does not appear in the menu** you can try to install it manually onto your repository
+  page as follows:
+  
         # in glazier/glazier-server/
         bundle exec rails console
 
@@ -50,12 +57,13 @@ relatively painless way to start developing cards.
         # if your card's name in package.json is 'my-card'
         dashboard.add_pane('my-card')
 
-
-  note - to remove a card from a dashboard, use:
-
-    dashboard.remove_pane(card_type_name)
-
   In your browser, navigate to your repository page.  Your card should appear there.
+
+  To manually remove a card, use:
+
+        # you should be able to do this from the dashboard as described above
+        dashboard.remove_pane(card_type_name)  
+
 
 ## Developing a Glazier Card
 
