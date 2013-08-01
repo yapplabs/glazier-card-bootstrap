@@ -1,15 +1,14 @@
 {
   "name": "glazier-card-bootstrap",
+  "displayName": "Name Card Referred to on the Dashboad",
   "glazierConfig": {
     "consumes": [
       "repository"
     ],
-    "assetHost": "http://glazier.s3.amazonaws.com",
-    "shortName": "glazier-card-bootstrap",
-    "repositoryName": "yapplabs/glazier-card-bootstrap"
+    "assetHost": "http://glazier.s3.amazonaws.com"
   },
-  "version": "0.0.2",
-  "description": "A starting point for making glazier cards",
+  "version": "0.0.1",
+  "description": "A description of what this card does",
   "main": "card.js",
   "scripts": {
     "test": "grunt test"
