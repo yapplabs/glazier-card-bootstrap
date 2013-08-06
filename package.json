@@ -1,7 +1,7 @@
 {
   "name": "glazier-card-bootstrap",
-  "displayName": "Name Card Referred to on the Dashboad",
   "glazierConfig": {
+    "displayName": "Name Card Referred to on the Dashboad",
     "consumes": [
       "repository"
     ],
