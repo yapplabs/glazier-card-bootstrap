@@ -3,7 +3,6 @@
   "glazierConfig": {
     "displayName": "Name Card Referred to on the Dashboad",
     "consumes": [
-      "repository"
     ],
     "assetHost": "http://glazier.s3.amazonaws.com"
   },

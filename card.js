@@ -18,7 +18,6 @@ var card = Conductor.card({
     //'paneUserStorage': Conductor.Oasis.Consumer,
     //'authenticatedGithubApi': Conductor.Oasis.Consumer,
     //'unauthenticatedGithubApi': Conductor.Oasis.Consumer,
-    'repository': Conductor.Oasis.Consumer,
     'test': TestConsumer
 
   },
