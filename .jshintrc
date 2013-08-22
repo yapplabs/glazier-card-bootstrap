@@ -1,6 +1,7 @@
 {
   "predef": [
     "Conductor",
+    "Ember",
     "$",
     "define",
     "console",
