@@ -5,7 +5,7 @@ import TestConsumer from 'app/consumers/test';
 Conductor.require('/vendor/jquery.js');
 Conductor.require('/vendor/handlebars.js');
 Conductor.require('/vendor/ember-latest.js');
-//Conductor.require('/vendor/loader.js');
+//Conductor.require('/vendor/resolver.js'); // if you are using Ember
 
 /* css files */
 Conductor.requireCSS('/css/glazier_card.css');
@@ -41,7 +41,7 @@ var card = Conductor.card({
 
 
   activate: function() {
-    this.App = requireModule('app/application');
+    this.App = require('app/application');
   },
 
   metadata: {

@@ -1,9 +1,10 @@
 glazier-card-bootstrap
 ======================
 
-This project offers a starting point for developing new [glazier](https://github.com/yapplabs/glazier) cards.  Note this is a work in progress.  In the future we plan to have
-a more robust development environment, processes, generators etc.  But for now, this project offers a lightweight,
-relatively painless way to start developing cards.
+This project offers a starting point for developing new [glazier](https://github.com/yapplabs/glazier)
+cards.  Note this is a work in progress.  In the future we plan to have a more robust
+development environment, processes, generators etc.  But for now, this project offers
+a lightweight, relatively painless way to start developing cards.
 
 ## Steps for developing a glazier card from this repo
 
@@ -15,38 +16,38 @@ relatively painless way to start developing cards.
 
         * rename the enclosing directory
         * edit the name-related properties in package.json (including name, displayName, etc.)
-   
-3.  If you plan to use Ember.js to develop your card: 
+
+3.  If you plan to use Ember.js to develop your card:
 
         * copy the files in the /ember-app-files dir to the /app dir
         * in cards.js uncomment the ember and handlebars js files:
-  
+
         Conductor.require('/vendor/handlebars.js');
         Conductor.require('/vendor/ember-latest.js');
 
   If you are not using Ember, you may delete the /ember-app-files directory and the require statements.
 
-4. Symlink your card dir 
+4. Symlink your card dir
 
-        cd to your-glazier-installation-dir/cards/ 
+        cd to your-glazier-installation-dir/cards/
         ln -s /path/to/your-glazier-card-dir
 
 5. Ingest your card
 
         # in `glazier/`
         grunt ingestCards
-    
+
 6. Adding your card to a Github repository dashboard
 
   Navigate to the repository in Glazier.  Click on the `Add Pane` link on the top right of the page.
   Your card type should appear in the menu.  Click on it and it should appear in the dashboard.
 
-  To **remove a card** from a dashboard, hover on the gear in the lower right of the card and a Remove Card 
+  To **remove a card** from a dashboard, hover on the gear in the lower right of the card and a Remove Card
   link will appear.
 
   **Only if your card does not appear in the menu** you can try to install it manually onto your repository
   page as follows:
-  
+
         # in glazier/glazier-server/
         bundle exec rails console
 
@@ -62,7 +63,7 @@ relatively painless way to start developing cards.
   To manually remove a card, use:
 
         # you should be able to do this from the dashboard as described above
-        dashboard.remove_pane(card_type_name)  
+        dashboard.remove_pane(card_type_name)
 
 
 ## Developing a Glazier Card
